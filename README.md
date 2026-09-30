@@ -1,129 +1,33 @@
-# Courier Management System (Salesforce)
+# Courier Management System (CMS) - Salesforce Cloud
 
-A Salesforce-based Courier Management System (CMS) designed to streamline end-to-end courier operations, from shipment booking through delivery confirmation and invoicing.
+**Developer:** Mohammed Faiz P.  
+**Institution:** Mazharul Uloom College  
+**Program:** TN Skills – Vetri Thiran Payarchi Thittam (VTPT)  
 
-## 1) Project Overview & Business Objectives
+## 📌 Project Overview
+Courier and logistics companies often struggle to efficiently manage shipments and deliveries due to manual processes and disconnected systems. The Courier Management System (CMS) is a cloud-based logistics solution built entirely on the Salesforce platform. It centralizes shipment booking, real-time tracking, delivery agent assignment, automated status updates, billing, and performance analytics.
 
-### Overview
-The CMS is implemented on Salesforce using custom objects, record-triggered automation, role-based access controls, and reporting dashboards. It centralizes customer, shipment, branch, delivery agent, and billing data in a single platform.
+## 🚀 Technology Stack
+*   **Platform:** Salesforce Developer Edition
+*   **User Interface:** Salesforce Lightning Experience
+*   **Data Model:** Custom Objects (Customer, Shipment, Delivery Agent, Branch, Delivery Update, Invoice)
+*   **Automation:** Record-Triggered Flows, Validation Rules
+*   **Security:** Role-Based Access Control (Profiles, Roles)
+*   **Analytics:** Lightning Reports & Dashboards
 
-### Business Objectives
-- Improve shipment lifecycle visibility from creation to delivery.
-- Reduce manual handoffs through guided automation.
-- Enable branch-level and organization-level operational reporting.
-- Strengthen data security with clear ownership and access boundaries.
-- Improve billing consistency via invoice traceability per shipment.
+## 📂 Repository Structure
 
-## 2) Data Architecture & Entity Relationship Summary
+*   📁 **1. Brainstorming & Ideation:** Problem Statement and Empathy Maps.
+*   📁 **2. Requirement Analysis:** Customer Journey, Functional & Non-Functional Requirements.
+*   📁 **3. Project Design Phase:** Solution Architecture and Data Flow Diagrams.
+*   📁 **4. Project Planning Phase:** Agile Sprint Schedule and Product Backlog.
+*   📁 **5. Project Development Phase:** Schema Builder, Object Configurations, and Flow layouts.
+*   📁 **6. Project Testing:** Functional test cases and Salesforce execution screenshots.
+*   📁 **7. Project Documentation:** Final comprehensive project report.
+*   📁 **8. Project Demonstration:** Link to the live video walkthrough of the Salesforce implementation.
 
-The solution uses the following custom objects:
-
-- **Customer**: Stores customer profile and contact details.
-- **Shipment**: Core transaction object containing shipment metadata, status, source/destination branch, and assigned delivery agent.
-- **Delivery Agent**: Stores courier personnel details, assignment capacity, and operational status.
-- **Branch**: Represents physical branch locations handling shipment intake and dispatch.
-- **Delivery Update**: Event-style object capturing shipment status history (in transit, delayed, delivered, etc.).
-- **Invoice**: Billing record linked to shipments and customers.
-
-### Relationship Summary (Logical)
-- One **Customer** can have many **Shipments**.
-- One **Branch** can manage many **Shipments** (origin and/or destination context).
-- One **Delivery Agent** can be assigned to many **Shipments** over time.
-- One **Shipment** can have many **Delivery Updates**.
-- One **Shipment** can have one (or more, if business allows) **Invoice** records.
-
-### Typical Linkage Pattern
-- `Shipment -> Customer` (Lookup/Master-Detail based on ownership model)
-- `Shipment -> Branch` (Origin Branch, Destination Branch lookups)
-- `Shipment -> Delivery Agent` (Lookup)
-- `Delivery Update -> Shipment` (Master-Detail preferred for timeline integrity)
-- `Invoice -> Shipment`, `Invoice -> Customer` (Lookup/Master-Detail based on billing policy)
-
-## 3) Automation Rules (Record-Triggered Flows)
-
-Shipment processing is automated with Salesforce **Record-Triggered Flows** to standardize status progression and reduce manual updates.
-
-### Core Automation Behaviors
-- On **Shipment create**:
-  - Initialize default shipment status (e.g., `Booked`).
-  - Optionally create first **Delivery Update** entry.
-- On **Shipment status change**:
-  - Create a corresponding **Delivery Update** timeline record.
-  - Enforce valid state transitions (e.g., prevent `Delivered` directly from `Booked` without transit events).
-- On **Assignment updates**:
-  - Update shipment assignment fields when delivery agent changes.
-  - Trigger branch/operations notifications where applicable.
-- On **Delivery completion**:
-  - Mark final status as `Delivered`.
-  - Trigger downstream invoice readiness logic or invoice generation flow.
-
-### Flow Design Notes
-- Use before-save flows for fast field updates.
-- Use after-save flows for related-record creation (Delivery Update, Invoice actions).
-- Add decision branches for branch-specific processes and exception handling.
-
-## 4) Security & Access Model
-
-Security follows Salesforce layered controls: **Role Hierarchy + Profiles + OWD + Sharing Rules**.
-
-### Roles (example)
-- Operations Head
-- Regional/Branch Manager
-- Dispatcher
-- Delivery Agent User
-- Finance User
-
-### Profiles (example access model)
-- **Operations Profile**: Full create/read/update on Shipment and Delivery Update.
-- **Delivery Agent Profile**: Read assigned shipments; update limited delivery status fields.
-- **Finance Profile**: Read shipment/customer context; manage Invoice object.
-- **Admin Profile**: Full object and field-level control.
-
-### Organization-Wide Defaults (OWD) (recommended baseline)
-- **Shipment**: Private
-- **Delivery Update**: Controlled by Parent (Shipment)
-- **Invoice**: Private
-- **Customer**: Private or Public Read Only (based on compliance policy)
-- **Branch**: Public Read Only
-- **Delivery Agent**: Private or Public Read Only (depending on HR/privacy requirements)
-
-### Additional Sharing Controls
-- Criteria-based sharing for branch teams to view branch-relevant shipments.
-- Role hierarchy visibility for management escalation.
-- Optional manual sharing for cross-branch exceptions.
-
-## 5) Reports & Analytics Dashboards
-
-The CMS includes operational and management analytics using Salesforce Reports and Dashboards.
-
-### Recommended Reports
-- Shipments by Status (Booked/In Transit/Delayed/Delivered)
-- Average Delivery Turnaround Time by Branch
-- Delivery Agent Workload and Completion Rate
-- Delayed Shipment Trend by Week/Month
-- Invoice Status Summary (Pending/Paid/Overdue)
-
-### Dashboard Components
-- KPI tiles: Total active shipments, delivered today, delayed shipments, pending invoices.
-- Trend charts: Delivery performance over time.
-- Branch comparison charts: Throughput and SLA performance.
-- Agent performance charts: Assignments vs successful deliveries.
-
-## Repository Structure
-
-```text
-/
-├── README.md
-├── docs/
-└── screenshots/
-```
-
-- **docs/**: Architecture diagrams, object model references, flow designs, and functional specifications.
-- **screenshots/**: Salesforce configuration proof (object setup, flows, sharing settings, reports, and dashboards).
-
-## Next Documentation Assets to Add
-
-- ER diagram for all custom objects.
-- Flow diagrams for each shipment status automation path.
-- Security matrix (Roles x Profiles x Objects x Permissions).
-- Screenshot evidence for objects, flows, reports, and dashboards.
+## ⚙️ Key Features Implemented
+1.  **Data Validation:** Strict rules preventing invalid data entry (e.g., ensuring 10-digit phone numbers and valid package weights).
+2.  **Automated Status Sync:** A Salesforce Flow that automatically updates the master Shipment status when a Delivery Agent logs a new tracking update.
+3.  **Security & Hierarchy:** Custom profiles ensuring Branch Managers, Delivery Agents, and Customer Support only see the data relevant to their roles.
+4.  **Live Analytics:** Real-time dashboards tracking revenue by branch, agent performance, and package transit statuses.
