@@ -4,6 +4,10 @@
 **Institution:** Mazharul Uloom College  
 **Program:** TN Skills – Vetri Thiran Payarchi Thittam (VTPT)  
 
+## 🔗 Project Links
+*   **GitHub Repository:** [Courier Management System - Salesforce](https://github.com/Faiz-7716/courier-management-system-salesforce)
+*   **Demo Video:** [Live Walkthrough](https://drive.google.com/file/d/12TC1Pa1VoYQNZ7_AbrkBWr8h2CjY6609/view?usp=drivesdk)
+
 ## 📌 Project Overview
 Courier and logistics companies often struggle to efficiently manage shipments and deliveries due to manual processes and disconnected systems. The Courier Management System (CMS) is a cloud-based logistics solution built entirely on the Salesforce platform. It centralizes shipment booking, real-time tracking, delivery agent assignment, automated status updates, billing, and performance analytics.
 
